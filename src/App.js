@@ -6,8 +6,15 @@ function App(props) {
   const taskName = useRef();
   console.log(props.listOfItems);
   const addTask = () => {
-    if (taskName.current.value !== "") props.addTask(taskName.current.value);
+    const filteredState = props.listOfItems.find(
+      (el) => el.name === taskName.current.value
+    );
+    if (taskName.current.value !== "" && !filteredState)
+      props.addTask(taskName.current.value);
     taskName.current.value = "";
+  };
+  const accomplishTask = (name) => {
+    if ("a") props.accomplishTask(name);
   };
   return (
     <div className="App">
@@ -28,7 +35,7 @@ function App(props) {
               console.log(item.name);
               props.rmTask(item.name);
             }}
-            clickCheck={() => props.accomplishTask(item.name)}
+            clickCheck={() => accomplishTask(item.name)}
           />
         ))}
       </ul>
