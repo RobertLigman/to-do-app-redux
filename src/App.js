@@ -1,13 +1,20 @@
-import logo from "./logo.svg";
+import { useRef } from "react";
+import { connect } from "react-redux";
 import "./App.css";
 import ListItem from "./ListItem";
 function App(props) {
+  const taskName = useRef();
+  console.log(props.listOfItems);
   return (
     <div className="App">
       <h1>To Do App with react-redux</h1>
       <div className="searchbar">
-        <input />
-        <button type="submit">Dodaj</button>
+        <input ref={taskName} />
+        <button
+          type="submit"
+          onClick={() => props.addTask(taskName.current.value)}>
+          Dodaj
+        </button>
       </div>
       <ul>
         {props.listOfItems.map((item) => (
@@ -17,5 +24,12 @@ function App(props) {
     </div>
   );
 }
-
-export default App;
+const mapStateToProps = (state) => {
+  return { listOfItems: state.listOfItems };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addTask: (taskName) => dispatch({ type: "ADD_TASK", taskName }),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(App);

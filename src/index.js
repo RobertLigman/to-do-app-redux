@@ -9,11 +9,10 @@ import reducer from "./reducer";
 
 const store = createStore(reducer);
 
-const listOfItems = [{ name: "Barburka" }];
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App listOfItems={listOfItems} />
+      <App />
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")
