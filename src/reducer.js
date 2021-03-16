@@ -1,5 +1,5 @@
 const initialState = {
-  listOfItems: [{ name: "Barburka" }],
+  listOfItems: [],
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -7,6 +7,13 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         listOfItems: state.listOfItems.concat({ name: action.taskName }),
+      };
+    case "REMOVE_TASK":
+      return {
+        ...state,
+        listOfItems: state.listOfItems.filter((el) => {
+          return el.name != action.deleteElement;
+        }),
       };
   }
   return state;
