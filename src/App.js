@@ -23,11 +23,12 @@ function App(props) {
           <ListItem
             key={item.name}
             name={item.name}
+            isAccomplished={item.accomplished}
             click={() => {
               console.log(item.name);
               props.rmTask(item.name);
             }}
-            clickCheck={""}
+            clickCheck={() => props.accomplishTask(item.name)}
           />
         ))}
       </ul>
@@ -41,6 +42,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addTask: (taskName) => dispatch({ type: "ADD_TASK", taskName }),
     rmTask: (name) => dispatch({ type: "REMOVE_TASK", deleteElement: name }),
+    accomplishTask: (taskName) =>
+      dispatch({ type: "ACCOMPLISHED_TASK", taskName }),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(App);

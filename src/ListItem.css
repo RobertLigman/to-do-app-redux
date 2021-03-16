@@ -9,6 +9,10 @@
     transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
+.accomplished {
+    background-color: rgb(48, 179, 9);
+}
+
 .task-list__item:hover {
     /* background-color: rgb(233, 12, 12); */
     /* cursor: not-allowed; */
