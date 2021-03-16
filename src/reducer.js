@@ -23,9 +23,12 @@ const reducer = (state = initialState, action) => {
         (el) => el.name === action.taskName
       );
       stateValue["accomplished"] = true;
+      state.listOfItems.concat(stateValue);
       return {
         ...state,
-        stateValue,
+        listOfItems: state.listOfItems.filter(
+          (el, index) => el.name !== el.name[index + 1]
+        ),
       };
     }
   }
