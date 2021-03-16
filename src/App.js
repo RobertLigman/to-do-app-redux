@@ -18,7 +18,7 @@ function App(props) {
           Dodaj
         </button>
       </div>
-      <ul>
+      <ul className="task-list">
         {props.listOfItems.map((item) => (
           <ListItem
             key={item.name}
