@@ -27,6 +27,7 @@ function App(props) {
               console.log(item.name);
               props.rmTask(item.name);
             }}
+            clickCheck={""}
           />
         ))}
       </ul>

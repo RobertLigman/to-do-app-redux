@@ -10,6 +10,6 @@
 }
 
 .task-list__item:hover {
-    background-color: rgb(233, 12, 12);
-    cursor: not-allowed;
+    /* background-color: rgb(233, 12, 12); */
+    /* cursor: not-allowed; */
 }
