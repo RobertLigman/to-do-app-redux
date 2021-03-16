@@ -6,7 +6,7 @@ function App(props) {
   const taskName = useRef();
   console.log(props.listOfItems);
   const addTask = () => {
-    props.addTask(taskName.current.value);
+    if (taskName.current.value !== "") props.addTask(taskName.current.value);
     taskName.current.value = "";
   };
   return (

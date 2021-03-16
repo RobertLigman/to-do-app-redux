@@ -12,7 +12,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         listOfItems: state.listOfItems.filter((el) => {
-          return el.name != action.deleteElement;
+          return el.name !== action.deleteElement;
         }),
       };
   }
