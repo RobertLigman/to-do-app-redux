@@ -16,6 +16,7 @@ function App(props) {
   const accomplishTask = (name) => {
     if ("a") props.accomplishTask(name);
   };
+  console.log(props.filteredList);
   return (
     <div className="App">
       <h1>To Do App with react-redux</h1>
@@ -24,26 +25,48 @@ function App(props) {
         <button type="submit" onClick={addTask}>
           Dodaj
         </button>
+        <select onChange={(e) => props.filterTasks(e.target.value)}>
+          <option value="all">All</option>
+          <option value="accomplished">Completed</option>
+          <option value="unaccomplished">In Progress</option>
+        </select>
       </div>
       <ul className="task-list">
-        {props.listOfItems.map((item) => (
-          <ListItem
-            key={item.name}
-            name={item.name}
-            isAccomplished={item.accomplished}
-            click={() => {
-              console.log(item.name);
-              props.rmTask(item.name);
-            }}
-            clickCheck={() => accomplishTask(item.name)}
-          />
-        ))}
+        {props.filtering
+          ? props.filteredList.map((item) => (
+              <ListItem
+                key={item.name}
+                name={item.name}
+                isAccomplished={item.accomplished}
+                click={() => {
+                  console.log(item.name);
+                  props.rmTask(item.name);
+                }}
+                clickCheck={() => accomplishTask(item.name)}
+              />
+            ))
+          : props.listOfItems.map((item) => (
+              <ListItem
+                key={item.name}
+                name={item.name}
+                isAccomplished={item.accomplished}
+                click={() => {
+                  console.log(item.name);
+                  props.rmTask(item.name);
+                }}
+                clickCheck={() => accomplishTask(item.name)}
+              />
+            ))}
       </ul>
     </div>
   );
 }
 const mapStateToProps = (state) => {
-  return { listOfItems: state.listOfItems };
+  return {
+    listOfItems: state.listOfItems,
+    filteredList: state.filteredList,
+    filtering: state.filtering,
+  };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -51,6 +74,8 @@ const mapDispatchToProps = (dispatch) => {
     rmTask: (name) => dispatch({ type: "REMOVE_TASK", deleteElement: name }),
     accomplishTask: (taskName) =>
       dispatch({ type: "ACCOMPLISHED_TASK", taskName }),
+    filterTasks: (filterOption) =>
+      dispatch({ type: "FILTER_TASKS", filterOption }),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(App);

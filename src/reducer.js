@@ -1,5 +1,7 @@
 const initialState = {
   listOfItems: [],
+  filteredList: [],
+  filtering: false,
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -10,7 +12,9 @@ const reducer = (state = initialState, action) => {
           name: action.taskName,
           accomplished: false,
         }),
+        filtering: false,
       };
+
     case "REMOVE_TASK":
       return {
         ...state,
@@ -31,6 +35,22 @@ const reducer = (state = initialState, action) => {
         ),
       };
     }
+    case "FILTER_TASKS":
+      return {
+        ...state,
+        filteredList: state.listOfItems.filter((el) => {
+          switch (action.filterOption) {
+            case "all":
+              return el;
+            case "accomplished":
+              return el.accomplished === true;
+            case "unaccomplished":
+              return el.accomplished === false;
+          }
+          return 0;
+        }),
+        filtering: true,
+      };
   }
   return state;
 };
