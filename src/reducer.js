@@ -39,19 +39,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         filteredList: state.listOfItems.filter((el) => {
-          switch (action.filterOption) {
-            case "all":
-              return el;
-            case "accomplished":
-              return el.accomplished === true;
-            case "unaccomplished":
-              return el.accomplished === false;
-          }
-          return 0;
+          if (action.filterOption === "all") return el;
+          else if (action.filterOption === "accomplished")
+            return el.accomplished === true;
+          else return el.accomplished === false;
         }),
         filtering: true,
       };
+    default:
+      return state;
   }
-  return state;
+  // return state;
 };
 export default reducer;
